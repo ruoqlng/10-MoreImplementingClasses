@@ -2,8 +2,8 @@
 A   CapitalT   class and methods that use the Cross class.
 
 Authors: David Mutchler, Dave Fisher, Valerie Galluzzi, Amanda Stouder,
-         their colleagues and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         their colleagues and ruoqing.
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 import rosegraphics as rg
 
@@ -16,10 +16,10 @@ def main():
     print('Un-comment the calls in MAIN one by one')
     print(' to run the testing code as you complete the TODOs.')
 
-    # run_test_simple_t()
-    # run_test_set_colors()
-    # run_test_move_by()
-    # run_test_clone()
+    run_test_simple_t()
+    run_test_set_colors()
+    run_test_move_by()
+    run_test_clone()
 
 
 def run_test_simple_t():
@@ -136,8 +136,27 @@ class CapitalT(object):
           :type height:   int
           :type letter_thickness:   int
         """
+        self.window = rg.RoseWindow
+        self.ic = intersection_center
+        self.width = width
+        self.height = height
+        self.thickness = letter_thickness
+
+        h1 = rg.Point((intersection_center.x - (width / 2)),
+                      (intersection_center.y + letter_thickness / 2))
+
+        h2 = rg.Point((intersection_center.x + (width / 2)),
+                      (intersection_center.y - letter_thickness / 2))
+
+        self.h_rect = rg.Rectangle(h1, h2)
+
+        v1 = rg.Point((intersection_center.x - letter_thickness / 2),
+                      (intersection_center.y - letter_thickness / 2))
+        v2 = rg.Point((intersection_center.x + letter_thickness/2),
+                      (intersection_center.y + (height - letter_thickness/2)))
+        self.v_rect = rg.Rectangle(v1, v2)
         # --------------------------------------------------------------
-        # TODO: 3.
+        # DONE: 3.
         #   READ the above specification, including the Example.
         #   Implement this method
         #   Note: you will need to also implement attach_to before testing
@@ -161,8 +180,10 @@ class CapitalT(object):
         Type hints:
           :type window: rg.RoseWindow
         """
+        self.v_rect.attach_to(window)
+        self.h_rect.attach_to(window)
         # --------------------------------------------------------------
-        # TODO: 4.
+        # DONE: 4.
         #   READ the above specification, including the Example.
         #   Implement and test this method by looking at the console and
         #     the graphics window (compare it to simple_t.pdf)
@@ -188,8 +209,12 @@ class CapitalT(object):
           :type fill_color: str
           :type outline_color: str
         """
+        self.h_rect.outline_color = outline_color
+        self.v_rect.outline_color = outline_color
+        self.v_rect.fill_color = fill_color
+        self.h_rect.fill_color = fill_color
         # --------------------------------------------------------------
-        # TODO: 5.
+        # DONE: 5.
         #   READ the above specification, including the Example.
         #   Implement and test this method by uncommenting the appropriate
         #     run_test method in main. Compare the graphics window to
@@ -218,8 +243,10 @@ class CapitalT(object):
           :type dx: int
           :type dy: int
         """
+        self.h_rect.move_by(dx, dy)
+        self.v_rect.move_by(dx, dy)
         # --------------------------------------------------------------
-        # TODO: 6.
+        # DONE: 6.
         #   READ the above specification, including the Example.
         #   Implement and test this method by uncommenting the appropriate
         #     run_test method in main. Compare the graphics window to
@@ -246,8 +273,11 @@ class CapitalT(object):
         Type hints:
           :rtype: CapitalT
         """
+        c = CapitalT(self.ic, self.width, self.height, self.thickness)
+        c.set_colors(self.h_rect.fill_color, self.v_rect.outline_color)
+        return c
         # --------------------------------------------------------------
-        # TODO: 7.
+        # DONE: 7.
         #   READ the above specification, including the Example.
         #   Implement and test this method by uncommenting the appropriate
         #     run_test method in main. Compare the graphics window to
